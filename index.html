@@ -6,7 +6,6 @@
     <title>MoraCars | AutoRepuestos</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Variables de color basadas en tu logo */
         :root {
             --bg-dark: #120303;
             --card-bg: #1e0a0a;
@@ -39,7 +38,6 @@
             text-align: center;
         }
 
-        /* Encabezado y Logo */
         .header {
             margin-bottom: 32px;
         }
@@ -58,14 +56,12 @@
             letter-spacing: 1px;
         }
 
-        /* Contenedor de Enlaces */
         .links-container {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
-        /* Estilo de los Botones */
         .link-btn {
             display: flex;
             align-items: center;
@@ -82,16 +78,15 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
 
-        /* Iconos dentro de los botones */
         .link-btn i {
             position: absolute;
             left: 20px;
             font-size: 1.3rem;
         }
 
-        /* Efectos Hover (Al pasar el mouse o presionar) */
         .link-btn:hover {
             background: var(--primary-red);
             border-color: var(--accent-orange);
@@ -99,11 +94,6 @@
             box-shadow: 0 6px 12px rgba(139, 30, 30, 0.4);
         }
 
-        .link-btn:active {
-            transform: translateY(-1px);
-        }
-
-        /* Botón destacado (por ejemplo, para cotizaciones directas) */
         .link-btn.featured {
             background: linear-gradient(90deg, var(--primary-red) 0%, #b32424 100%);
             border-color: var(--accent-orange);
@@ -114,14 +104,46 @@
             background: linear-gradient(90deg, #b32424 0%, var(--accent-orange) 100%);
         }
 
-        /* Footer */
+        /* --- NUEVO: Estilos para el Horario Desplegable --- */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: rgba(30, 10, 10, 0.4);
+            border: 0 solid var(--primary-red);
+            border-radius: 0 0 8px 8px;
+            margin-top: -14px; /* Hace que se pegue al botón de arriba */
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .accordion-content.open {
+            padding: 20px;
+            border: 2px solid var(--primary-red);
+            border-top: none;
+            max-height: 200px; /* Altura máxima estimada */
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.1);
+            padding-bottom: 4px;
+        }
+        
+        .schedule-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
         .footer {
             margin-top: 40px;
             font-size: 0.8rem;
             color: var(--text-gray);
         }
 
-        /* Animación para el botón destacado */
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(139, 30, 30, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(139, 30, 30, 0); }
@@ -144,11 +166,12 @@
                 <i class="fa-brands fa-whatsapp"></i> Cotizar por WhatsApp
             </a>
 
-            <a href="#" target="_blank" class="link-btn">
+            <a href="https://drive.google.com/drive/folders/1A2B3C4D5E6F7G8H9I0J" target="_blank" class="link-btn">
                 <i class="fa-solid fa-book-open"></i> Ver Catálogo Digital
             </a>
 
-            <a href="https://www.instagram.com/moracars?igsh=azcxOXZ5NmkycTFs" target="_blank" class="link-btn">
+            <a href="ttps://www.instagram.com/moracars?igsh=azcxOXZ5NmkycTFs
+" target="_blank" class="link-btn">
                 <i class="fa-brands fa-instagram"></i> Síguenos en Instagram
             </a>
 
@@ -156,17 +179,49 @@
                 <i class="fa-solid fa-location-dot"></i> Ubicación de la Tienda
             </a>
 
-            <a href="9:00 am - 9:00pm" class="link-btn">
+            <div class="link-btn" id="btn-horario">
                 <i class="fa-solid fa-clock"></i> Horarios de Atención
-            </a>
+            </div>
+            
+            <div class="accordion-content" id="panel-horario">
+                <div class="schedule-row">
+                    <span>Lunes a Viernes:</span>
+                    <strong>8:00 AM - 5:00 PM</strong>
+                </div>
+                <div class="schedule-row">
+                    <span>Sábados:</span>
+                    <strong>9:00 AM - 6:00 PM</strong>
+                </div>
+                <div class="schedule-row">
+                    <span>Domingos:</span>
+                    <span style="color: var(--accent-orange);">solo por encargo</span>
+                </div>
+            </div>
 
         </div>
 
         <div class="footer">
-            <p>&copy; 2026 MoraCars. Todos los derechos reservados.</p>
+            <p>© 2026 MoraCars. Todos los derechos reservados.</p>
         </div>
 
     </div>
 
+    <script>
+        const btnHorario = document.getElementById('btn-horario');
+        const panelHorario = document.getElementById('panel-horario');
+
+        btnHorario.addEventListener('click', () => {
+            panelHorario.classList.toggle('open');
+            
+            // Ajuste estético de los bordes del botón cuando se abre
+            if(panelHorario.classList.contains('open')) {
+                btnHorario.style.borderRadius = "8px 8px 0 0";
+            } else {
+                setTimeout(() => {
+                    btnHorario.style.borderRadius = "8px";
+                }, 300); // Espera a que termine la animación
+            }
+        });
+    </script>
 </body>
 </html>
